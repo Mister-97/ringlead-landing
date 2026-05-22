@@ -1088,6 +1088,29 @@
     }
     .footer-links a:hover { color:var(--white); }
 
+    /* mobile-only phone section */
+    .phone-mobile-section {
+      display: none;
+      background: var(--bg);
+      padding: 48px 20px;
+      border-bottom: 1px solid var(--border);
+      justify-content: center;
+    }
+
+    .phone-animate-2 .pmsg-label:nth-child(1)  { animation: msg-in 0.4s ease 0.6s forwards; }
+    .phone-animate-2 .pmsg:nth-child(2)         { animation: msg-in 0.4s ease 0.8s forwards; }
+    .phone-animate-2 .pmsg-typing               { animation: msg-in 0.3s ease 2s forwards, msg-out 0.2s ease 3.2s forwards; }
+    .phone-animate-2 .pmsg-label:nth-child(4)   { animation: msg-in 0.3s ease 3.4s forwards; }
+    .phone-animate-2 .pmsg:nth-child(5)         { animation: msg-in 0.4s ease 3.5s forwards; }
+    .phone-animate-2 .pmsg-label:nth-child(6)   { animation: msg-in 0.3s ease 4.8s forwards; }
+    .phone-animate-2 .pmsg:nth-child(7)         { animation: msg-in 0.4s ease 4.9s forwards; }
+    .phone-animate-2 .pmsg-label:nth-child(8)   { animation: msg-in 0.3s ease 6.2s forwards; }
+    .phone-animate-2 .pmsg:nth-child(9)         { animation: msg-in 0.4s ease 6.3s forwards; }
+
+    @media (max-width: 1024px) {
+      .phone-mobile-section { display: flex; }
+    }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1024px) {
       .hero { grid-template-columns: 1fr; }
@@ -1339,6 +1362,45 @@
       <div class="hero-bar-item fade-in fd3">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         <span>Clear ROI from day one</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHONE MOBILE (hero right hidden on mobile, show here) -->
+<div class="phone-mobile-section">
+  <div class="phone-mockup">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="phone-status">
+          <span>9:41</span>
+          <span style="display:flex;gap:4px;align-items:center">
+            <svg width="12" height="10" viewBox="0 0 20 16" fill="currentColor"><rect x="0" y="8" width="4" height="8" rx="1"/><rect x="5" y="5" width="4" height="11" rx="1"/><rect x="10" y="2" width="4" height="14" rx="1"/><rect x="15" y="0" width="4" height="16" rx="1"/></svg>
+            <svg width="14" height="10" viewBox="0 0 24 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 8C4 4 8 2 12 2s8 2 11 6"/><path d="M4 11c2-2 5-3 8-3s6 1 8 3"/><circle cx="12" cy="15" r="1" fill="currentColor"/></svg>
+          </span>
+        </div>
+        <div class="phone-header">
+          <div class="phone-avatar" style="position:relative">
+            RL
+            <div class="phone-notification">1</div>
+          </div>
+          <div>
+            <div class="phone-contact-name">Ringlead AI</div>
+            <div class="phone-contact-sub">Missed call from (813) 555-0192</div>
+          </div>
+        </div>
+        <div class="phone-msgs phone-animate-2">
+          <div class="pmsg-label">Ringlead</div>
+          <div class="pmsg pmsg-in">Hey! You just missed a call from D&amp;M Cooling. Still looking to get something taken care of today?</div>
+          <div class="pmsg-typing"><span></span><span></span><span></span></div>
+          <div class="pmsg-label right">Customer</div>
+          <div class="pmsg pmsg-out">My AC unit stopped working, need someone ASAP</div>
+          <div class="pmsg-label">Ringlead</div>
+          <div class="pmsg pmsg-in">Got it. What's the address? I'll check availability for a same-day visit.</div>
+          <div class="pmsg-label right">Customer</div>
+          <div class="pmsg pmsg-out">4821 Bay Shore Rd, Tampa</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1673,16 +1735,19 @@
     els.forEach(function(e){io.observe(e);});
   })();
 
-  // Loop phone animation every 9s
+  // Loop phone animations every 9s
   (function(){
-    var msgs = document.querySelector('.phone-msgs');
-    if(!msgs) return;
-    function restart(){
-      msgs.classList.remove('phone-animate');
-      void msgs.offsetWidth;
-      msgs.classList.add('phone-animate');
+    function loopAnim(selector, cls) {
+      var el = document.querySelector(selector);
+      if(!el) return;
+      setInterval(function(){
+        el.classList.remove(cls);
+        void el.offsetWidth;
+        el.classList.add(cls);
+      }, 9000);
     }
-    setInterval(restart, 9000);
+    loopAnim('.phone-msgs', 'phone-animate');
+    loopAnim('.phone-animate-2', 'phone-animate-2');
   })();
 </script>
 </body>
