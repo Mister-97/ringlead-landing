@@ -1132,9 +1132,10 @@
     @media (max-width: 768px) {
       /* nav */
       .nav-links { display:none; }
-      .nav-login-wrap { display:none; }
-      nav { padding: 0 20px; }
-      .nav-inner { height: 56px; }
+      nav { padding: 0; }
+      .nav-inner { height: 56px; padding: 0 16px; }
+      .btn-primary { padding: 9px 16px; font-size: 0.8rem; }
+      .btn-primary svg { width: 11px; height: 11px; }
 
       /* hero */
       .hero { padding: 64px 20px 52px; gap: 36px; }
@@ -1733,6 +1734,20 @@
       });
     },{threshold:0.08,rootMargin:'0px 0px -32px 0px'});
     els.forEach(function(e){io.observe(e);});
+  })();
+
+  // Login dropdown toggle (for mobile tap)
+  (function(){
+    var wrap = document.querySelector('.nav-login-wrap');
+    var btn  = wrap && wrap.querySelector('.nav-login');
+    if(!btn) return;
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      wrap.classList.toggle('open');
+    });
+    document.addEventListener('click', function(){
+      wrap.classList.remove('open');
+    });
   })();
 
   // Loop phone animations every 9s
